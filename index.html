@@ -7,6 +7,16 @@
 <meta name="description" content="Guilherme Castro: estratégia, mídia e os sistemas que fazem uma marca funcionar.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#040506">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://guikstro.github.io/portfolio/">
+<meta property="og:title" content="Guilherme Castro · Portfólio">
+<meta property="og:description" content="Estratégia, mídia paga e os sistemas que fazem uma marca crescer. Sites, relatórios, jogos e campanhas, com nomes e números reais.">
+<meta property="og:image" content="https://guikstro.github.io/portfolio/media/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://guikstro.github.io/portfolio/media/img/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -172,7 +182,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .obra__midia video,.obra__midia img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 1.2s var(--ease-out),opacity .8s}
 .obra__midia .v{object-position:center}
 .obra:hover .obra__midia video,.obra:hover .obra__midia img{transform:scale(1.035)}
-.obra__midia img.slide{opacity:0}
+.obra__midia img.slide{opacity:0;object-position:left top}
 .obra__midia img.slide.on{opacity:1}
 .obra__som{position:absolute;right:10px;top:10px;z-index:2;background:rgba(7,8,10,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:var(--key-suave);border-radius:6px;padding:3px 8px;color:var(--ash)}
 .obra__som.ativo{background:var(--mist);color:var(--iron)}
@@ -183,6 +193,23 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .obra__info .mais:after{content:"↵";font:500 11px var(--mono);display:inline-grid;place-items:center;width:20px;height:20px;border-radius:5px;background:var(--graphite);box-shadow:rgba(255,255,255,.15) 0 1px 1px inset;color:var(--ash)}
 .obra--texto .obra__info{justify-content:flex-end;min-height:220px;background:radial-gradient(120% 90% at 100% 0,rgba(69,35,36,.5),transparent 60%)}
 
+
+/* trabalhos · v6: bento visual, mídia em tela cheia e informação sobreposta */
+.grade{grid-auto-rows:clamp(300px,28vw,420px)}
+.obra{display:block;isolation:isolate}
+.obra__midia,.obra.largo .obra__midia{position:absolute;inset:0;margin:0;border-radius:0;aspect-ratio:auto}
+.obra__midia.palco-dev{padding-bottom:88px}
+.obra__info{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:72px 22px 20px;gap:4px;background:linear-gradient(180deg,transparent,rgba(4,5,6,.62) 38%,rgba(4,5,6,.94))}
+.obra__info .label{font-size:20px;margin-top:8px;letter-spacing:-.01em}
+.obra__info .body{max-height:0;opacity:0;overflow:hidden;transition:max-height .5s var(--ease-out),opacity .4s var(--ease)}
+.obra:hover .obra__info .body,.obra:focus-visible .obra__info .body{max-height:4.5em;opacity:1}
+.obra__info .mais{display:none}
+.obra__abrir{position:absolute;left:14px;top:14px;z-index:4;display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:8px;background:rgba(7,8,10,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:var(--key-suave);font:500 12px/1.2 var(--inter);color:var(--white);opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .4s var(--ease-out)}
+.obra:hover .obra__abrir,.obra:focus-visible .obra__abrir{opacity:1;transform:none}
+.obra__num{display:block;margin-top:2px;font:600 clamp(22px,2.2vw,30px)/1.1 var(--inter);letter-spacing:-.02em;color:var(--white)}
+.obra__num small{display:block;font:400 12px/1.3 var(--mono);letter-spacing:.04em;color:var(--ash);margin-top:2px}
+@media (hover:none),(max-width:700px){.obra__info .body{max-height:none;opacity:1}.obra__abrir{display:none}}
+@media (max-width:700px){.grade{grid-auto-rows:auto}.obra{aspect-ratio:4/5}.obra__info{padding:48px 18px 16px}.obra__num{font-size:22px}.obra__info .label{font-size:18px}.obra__info .body{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}}
 
 /* aparelhos */
 .obra__midia.palco-dev{display:grid;place-items:center;background:radial-gradient(80% 75% at 50% 35%,#17191d,#0a0b0d 72%)}
@@ -248,6 +275,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @keyframes eq{0%,100%{height:4px}50%{height:14px}}
 .som__agora{max-width:26ch;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .som__agora:empty{display:none}
+@media (max-width:640px){
+  .som{left:auto;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateY(120px);padding:0;min-width:44px;min-height:44px;justify-content:center;border-radius:12px}
+  .som.visivel{transform:none}
+  .som__rotulo{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+}
 
 /* entrada */
 .revela{opacity:0;transform:translateY(32px);filter:blur(6px);transition:opacity .9s var(--ease),transform 1.1s var(--ease-out),filter .9s var(--ease)}
@@ -333,9 +365,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <div class="hero__barra" aria-hidden="true"><span class="diamante" style="width:10px;height:10px"></span><div class="busca"><span>›</span><b id="hero-busca">Relatório · Dragão</b><span style="margin-left:auto" class="kbd">⌘K</span></div></div>
       <div class="hero__tela">
       <video muted playsinline preload="auto" poster="media/img/dragao-b.jpg" class="on" data-nome="Relatório · Dragão"><source src="media/v/dragao.mp4" type="video/mp4"></video>
-      <video muted playsinline preload="none" poster="media/img/moopy-a.jpg" data-nome="Site · Moopy"><source src="media/v/moopy.mp4" type="video/mp4"></video>
-      <video muted playsinline preload="none" poster="media/img/core.jpg" data-nome="Proposta · Core Engenharia"><source src="media/v/core.mp4" type="video/mp4"></video>
+      <video muted playsinline preload="none" poster="media/img/moopy-case-hero.jpg" data-nome="Site · Moopy"><source src="media/v/moopy-case-hero.mp4" type="video/mp4"></video>
       <video muted playsinline preload="none" poster="media/img/mercedes-b.jpg" data-nome="Relatório · Guanabara Diesel"><source src="media/v/mercedes.mp4" type="video/mp4"></video>
+      <video muted playsinline preload="none" poster="media/img/ferrovia-b.jpg" data-nome="Relatório · Ferrovia"><source src="media/v/ferrovia.mp4" type="video/mp4"></video>
       <div class="hero__legenda micro"><span class="hero__pontos" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span><span id="hero-nome">Relatório · Dragão</span></div>
       </div>
     </div>
@@ -481,14 +513,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 <script>
 const OBRAS = [
-  { id:'dragao', cat:'relatorios', status:'exec', largo:true, titulo:'Relatório Dragão', cliente:'Dragão', resumo:'Meta, TikTok e Google numa leitura só, com abertura em vídeo.', texto:'No lugar do PDF de prints, uma página com abertura, glossário e comparação entre períodos, escrita para o dono do negócio entender em dois minutos.', video:'dragao.mp4', poster:'dragao-b.jpg', ficha:[['Tipo','Relatório interativo'],['Canais','Meta, TikTok e Google']] },
+  { id:'moopy', cat:'sites', status:'exec', largo:true, num:['388 ícones','na personalização em 3D'], titulo:'Site da Moopy', cliente:'Moopy', resumo:'Do site antigo à personalização em 3D, com Black Friday e GTA VI.', texto:'Redesenhei o site da marca e as campanhas que rodaram nele: a Black Friday com 30% em todo o site, o sorteio do GTA VI e a personalização da garrafa em 3D, com 388 ícones e prévia da gravação a laser em tempo real. O vídeo mostra o antes e o depois com as rolagens dos dois sites.', video:'moopy-case-som.mp4', poster:'moopy-case.jpg', som:true, link:'https://moopy.com.br', linkTxt:'Abrir moopy.com.br', ficha:[['Tipo','Site e campanhas'],['Destaque','Personalização em 3D']] },
+  { id:'dragao', cat:'relatorios', status:'exec', largo:true, num:['37,3 mi','impressões pagas em cinco meses'], titulo:'Relatório Dragão', cliente:'Dragão', resumo:'Meta, TikTok e Google numa leitura só, com abertura em vídeo.', texto:'No lugar do PDF de prints, uma página com abertura, glossário e comparação entre períodos, escrita para o dono do negócio entender em dois minutos.', video:'dragao.mp4', poster:'dragao-b.jpg', ficha:[['Tipo','Relatório interativo'],['Canais','Meta, TikTok e Google']] },
+  { id:'noponto', dev:'ipad', cat:'jogos', status:'exec', largo:true, titulo:'No Ponto', cliente:'Moopy', resumo:'Encher a garrafa e parar no ponto certo.', texto:'Jogo de evento com pontuação proporcional à meta, ranking, cadastro para avisar o vencedor e painel com exportação. Roda instalado no aparelho, sem depender de rede.', video:'noponto.mp4', poster:'np-home.jpg', vertical:true, link:'https://moopy-no-ponto.pages.dev/', linkTxt:'Jogar', ficha:[['Tipo','Jogo de evento'],['Funciona','Sem internet']] },
+  { id:'jarvis', dev:'mac', cat:'pessoais', status:'conc', statusTxt:'Projeto pessoal', largo:true, titulo:'J.A.R.V.I.S.', cliente:'Para mim mesmo', resumo:'Assistente de voz em português para o Mac.', texto:'Cada pedido falado passa por um roteador com regras fixas e vai para um de três cérebros: o local resolve comandos conhecidos, o Gemini cuida de conversa e pesquisa, e o Claude só entra em tarefa de engenharia quando eu autorizo. Controla o Mac, lê o Gmail sem alterar nada e segue as mãos pela câmera.', video:'jarvis-som.mp4', poster:'jarvis-5.jpg', som:true, ficha:[['Tipo','App para Mac'],['Stack','Electron, Gemini, Claude Agent SDK']] },
   { id:'guanabara', cat:'relatorios', status:'exec', titulo:'Guanabara Diesel · Mercedes-Benz', cliente:'Guanabara Diesel', resumo:'Conversas no WhatsApp por estado, ano contra ano.', texto:'Relatório de campanhas da concessionária, com conversas por estado e comparação com o mesmo período do ano anterior.', video:'mercedes.mp4', poster:'mercedes-b.jpg', ficha:[['Tipo','Relatório interativo'],['Canal','Meta Ads']] },
   { id:'ferrovia', cat:'relatorios', status:'exec', titulo:'Ferrovia Solar & Grau', cliente:'Ferrovia', resumo:'Campanhas das lojas e datas comerciais, mês a mês.', texto:'Leitura mensal das campanhas das óticas, com destaque para as datas comerciais e o que cada loja entregou.', video:'ferrovia.mp4', poster:'ferrovia-b.jpg', ficha:[['Tipo','Relatório interativo'],['Canal','Meta Ads']] },
   { id:'adsquest', cat:'relatorios', status:'exec', titulo:'ADS QUEST', cliente:'Instituto Militão', resumo:'O trimestre de anúncios contado como um jogo.', texto:'Relatório gamificado: cada mês é uma fase, cada campanha uma missão, e o maior problema do trimestre vira o chefe final. Os números continuam lá, só que dá vontade de ler.', video:'adsquest.mp4', poster:'adsquest.jpg', ficha:[['Tipo','Relatório gamificado'],['Período','Janeiro a março']] },
   { id:'doca', cat:'relatorios', status:'exec', titulo:'Relatório mensal', cliente:'Grupo Doca', resumo:'Quatro lojas, Google Ads e Perfil da Empresa.', texto:'Relatório mensal das quatro lojas do grupo, montado a partir das exportações do Google Ads e do Perfil da Empresa, com seletor de loja e um antes e depois do que mudou.', img:'doca-hero.jpg', ficha:[['Tipo','Relatório interativo'],['Fontes','Google Ads e Perfil da Empresa']] },
-  { id:'noponto', dev:'ipad', cat:'jogos', status:'exec', largo:true, titulo:'No Ponto', cliente:'Moopy', resumo:'Encher a garrafa e parar no ponto certo.', texto:'Jogo de evento com pontuação proporcional à meta, ranking, cadastro para avisar o vencedor e painel com exportação. Roda instalado no aparelho, sem depender de rede.', video:'noponto.mp4', poster:'np-home.jpg', vertical:true, link:'https://moopy-no-ponto.pages.dev/', linkTxt:'Jogar', ficha:[['Tipo','Jogo de evento'],['Funciona','Sem internet']] },
   { id:'cm', dev:'ipad', cat:'jogos', status:'exec', titulo:'Desafio da Memória', cliente:'CM Máquinas · Lovol', resumo:'Jogo de totem para feira, com cadastro e brinde.', texto:'Jogo da memória com as máquinas da marca nas cartas, cadastro de visitantes e brinde. Instalável e funcional sem internet no estande.', video:'cm.mp4', poster:'cm-a.jpg', vertical:true, link:'https://jogodamemoria-cmmaquinas.netlify.app/', linkTxt:'Jogar', ficha:[['Tipo','Jogo de feira'],['Funciona','Sem internet']] },
-  { id:'moopy', dev:'mac', cat:'sites', status:'exec', largo:true, titulo:'Site da Moopy', cliente:'Moopy', resumo:'Design do site e da campanha de Black Friday.', texto:'Responsável pelo design do site da marca e pelos ajustes da campanha de Black Friday.', video:'moopy.mp4', poster:'moopy-a.jpg', link:'https://moopy.com.br', linkTxt:'Abrir moopy.com.br', ficha:[['Tipo','Site'],['Escopo','Design e campanha']] },
   { id:'qbbio', dev:'iphone', cat:'sites', status:'exec', titulo:'Biolink próprio', cliente:'Quezado & Brasil', resumo:'Atendimento, assuntos e como chegar.', texto:'Biolink do escritório no lugar do link de terceiros: atendimento direto, áreas de atuação e como chegar.', video:'quezado.mp4', poster:'quezado-a.jpg', vertical:true, link:'https://quezado-brasil-bio-v2.netlify.app', linkTxt:'Abrir', ficha:[['Tipo','Biolink'],['Cliente','Escritório de advocacia']] },
   { id:'qbv5', dev:'iphone', cat:'criativos', status:'exec', titulo:'Reel V5', cliente:'Quezado & Brasil', resumo:'Vídeo vertical para os anúncios do escritório.', texto:'Criativo em vídeo que rodou na mídia paga do escritório, parte de um sistema com ensaio, linguagem visual, campanhas e landing pages.', video:'quezado-v5-som.mp4', poster:'quezado-v5.jpg', vertical:true, som:true, ficha:[['Tipo','Criativo em vídeo'],['Formato','Vertical, com som']] },
   { id:'qbins', dev:'iphone', cat:'criativos', status:'exec', titulo:'Auxílio Insalubridade', cliente:'Quezado & Brasil', resumo:'Criativo de campanha sobre um direito específico.', texto:'Vídeo para campanha de tráfego explicando o auxílio insalubridade de forma direta, para quem pode ter direito e não sabe.', video:'quezado-insalubridade-som.mp4', poster:'quezado-insalubridade.jpg', vertical:true, som:true, ficha:[['Tipo','Criativo em vídeo'],['Formato','Vertical, com som']] },
@@ -497,10 +530,8 @@ const OBRAS = [
   { id:'core', dev:'mac', cat:'propostas', status:'prop', largo:true, titulo:'Alto padrão não busca alcance', cliente:'Core Engenharia', resumo:'Proposta de mídia com mini gerenciador de anúncios.', texto:'Proposta de tráfego pago para reconhecimento de marca de uma construtora de alto padrão. O cliente escolhe o valor e o canal e vê alcance, frequência e engajamento estimados.', video:'core.mp4', poster:'core.jpg', ficha:[['Tipo','Proposta de mídia'],['Destaque','Simulador de verba']] },
   { id:'fracht', dev:'mac', cat:'propostas', status:'prop', titulo:'Fazer a demanda chegar', cliente:'Fracht Group', resumo:'Estratégia B2B em dois motores: Google e Meta.', texto:'Estratégia B2B para uma empresa de logística: R$ 3.000 por mês divididos entre Google, para quem já procura, e Meta, para construir confiança, com o caminho da exposição até o pipeline comercial.', video:'fracht.mp4', poster:'fracht.jpg', ficha:[['Tipo','Proposta de mídia'],['Verba proposta','R$ 3.000 por mês']] },
   { id:'fuji', dev:'mac', cat:'propostas', status:'prop', statusTxt:'Proposta conceito · não executada', titulo:'Canal direto para restaurantes', cliente:'Fuji Lounge', resumo:'Biolink, reserva e cardápio próprios.', texto:'Proposta conceito: biolink próprio, site com reserva e cardápio com pedido direto, mais a conta do que deixa de ir para o marketplace. Montada por um gerador que faz uma proposta por restaurante.', video:'fuji.mp4', poster:'fuji.jpg', link:'https://guikstro.github.io/timeless-propostas/fuji-538e49.html', linkTxt:'Ver a proposta', ficha:[['Tipo','Proposta conceito'],['Estado','Não executada']] },
-  { id:'jarvis', dev:'mac', cat:'pessoais', status:'conc', statusTxt:'Projeto pessoal', largo:true, titulo:'J.A.R.V.I.S.', cliente:'Para mim mesmo', resumo:'Assistente de voz em português para o Mac.', texto:'Cada pedido falado passa por um roteador com regras fixas e vai para um de três cérebros: o local resolve comandos conhecidos, o Gemini cuida de conversa e pesquisa, e o Claude só entra em tarefa de engenharia quando eu autorizo. Controla o Mac, lê o Gmail sem alterar nada e segue as mãos pela câmera.', video:'jarvis-som.mp4', poster:'jarvis-5.jpg', som:true, ficha:[['Tipo','App para Mac'],['Stack','Electron, Gemini, Claude Agent SDK']] },
-  { id:'gerador', cat:'pessoais', status:'conc', statusTxt:'Ferramenta interna', titulo:'Gerador de propostas', cliente:'Ferramenta interna', resumo:'Uma proposta por cliente, a partir de uma planilha.', texto:'Monta uma proposta por restaurante a partir de uma planilha de dados: achados reais da casa, solução, portfólio, a conta da comissão e o plano indicado.', ficha:[['Tipo','Ferramenta interna']] },
-  { id:'demos', cat:'pessoais', status:'conc', statusTxt:'Conceito', titulo:'Sites demo para prospecção', cliente:'Prospecção nos EUA', resumo:'Sites feitos antes do primeiro contato.', texto:'Sites de demonstração para pequenas empresas de serviço nos Estados Unidos, com pesquisa da empresa e identidade própria, feitos antes do primeiro contato.', ficha:[['Tipo','Conceito'],['Estado','Não publicado']] },
-  { id:'esteira', cat:'pessoais', status:'conc', statusTxt:'Projeto pessoal', titulo:'Esteira de vídeo automatizada', cliente:'Projeto pessoal', resumo:'Roteiro, corte, legendas e capas por script.', texto:'Do vídeo longo aos cortes verticais: roteiro, corte, legendas e capas gerados por script.', ficha:[['Tipo','Projeto pessoal']] },
+  { id:'gerador', cat:'pessoais', status:'conc', statusTxt:'Ferramenta interna', titulo:'Gerador de propostas', cliente:'Ferramenta interna', resumo:'Uma proposta por cliente, a partir de uma planilha.', slides:['gerador-fuji.jpg','gerador-enjoy.jpg','gerador-yakibox.jpg','gerador-zaiko.jpg'], texto:'Monta uma proposta por restaurante a partir de uma planilha de dados: achados reais da casa, solução, portfólio, a conta da comissão e o plano indicado.', ficha:[['Tipo','Ferramenta interna']] },
+  { id:'esteira', cat:'pessoais', status:'conc', statusTxt:'Projeto pessoal', titulo:'Esteira de vídeo automatizada', cliente:'Projeto pessoal', resumo:'Roteiro, corte, legendas e capas por script.', video:'esteira.mp4', poster:'esteira.jpg', texto:'Do vídeo longo aos cortes verticais: roteiro, corte, legendas e capas gerados por script.', ficha:[['Tipo','Projeto pessoal']] },
 ];
 const CATS = [['todos','Todos'],['relatorios','Relatórios'],['jogos','Jogos'],['sites','Sites'],['criativos','Criativos'],['propostas','Propostas'],['pessoais','Projetos pessoais']];
 const STATUS = { exec:['tag--exec','Executado'], prop:['tag--prop','Proposta'], conc:['tag--conc','Conceito'] };
@@ -537,7 +568,7 @@ const STATUS = { exec:['tag--exec','Executado'], prop:['tag--prop','Proposta'], 
     el.setAttribute('aria-label', `${o.titulo}, ${o.cliente}. ${o.statusTxt || txt}. Ver detalhes`);
     const somTag = o.som ? '<span class="obra__som micro">Com som</span>' : '';
     if (o.dev) midia = `<div class="dev dev--${o.dev}"><div class="dev__tela">${midia.replace(/<span class="obra__som[^<]*<\/span>/, '')}</div></div>${somTag}`;
-    el.innerHTML = `${midia ? `<div class="obra__midia${o.dev ? ' palco-dev' : ''}">${midia}</div>` : ''}<div class="obra__info"><span class="tag ${cls}">${esc(o.statusTxt || txt)}</span><span class="label">${esc(o.titulo)}</span><span class="body">${esc(o.cliente)} · ${esc(o.resumo)}</span><span class="mais">Abrir</span></div>`;
+    el.innerHTML = `${midia ? `<div class="obra__midia${o.dev ? ' palco-dev' : ''}">${midia}</div>` : ''}<span class="obra__abrir" aria-hidden="true">Abrir ↗</span><div class="obra__info"><span class="tag ${cls}">${esc(o.statusTxt || txt)}</span>${o.num ? `<span class="obra__num">${esc(o.num[0])}<small>${esc(o.num[1])}</small></span>` : ''}<span class="label">${esc(o.titulo)}</span><span class="body">${esc(o.cliente)} · ${esc(o.resumo)}</span><span class="mais">Abrir</span></div>`;
     grade.appendChild(el);
   });
 
