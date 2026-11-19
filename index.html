@@ -24,7 +24,7 @@
 <style>
 :root{
   --noite:#050506;--carvao:#0b0a0e;--grafite:#141219;--linha:#24212c;--linha2:#34303e;
-  --osso:#ecebef;--cinza:#8b8894;--fumo:#5c5966;
+  --osso:#ecebef;--cinza:#a3a0ad;--fumo:#6f6c7a;
   --lilas:#c9c4ff;--lilas2:#8f82ff;--brasa:#e8d9b5;
   --sans:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -133,16 +133,28 @@ html.trava,html.trava body{overflow:hidden}
 .hero__rolar i{width:1px;height:34px;background:linear-gradient(var(--lilas),transparent);animation:desce 2.2s var(--ease) infinite}
 @keyframes desce{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 @keyframes anda{to{transform:translateX(-50%)}}
-@media (max-width:860px){.hero__pe span:not(.hero__rolar){display:none}.hero__mira{width:36vw}}
+@media (max-width:860px){.hero__pe{display:none}.hero__mira{width:36vw}}
 
 /* ===== marcas ===== */
-.marcas{padding:72px 0 64px}
-.marcas .mono{text-align:center;margin-bottom:28px}
-.marcas__trilho{display:flex;align-items:center;gap:72px;width:max-content;animation:anda 50s linear infinite}
-.marcas__vista{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-.marcas img{height:30px;width:auto;opacity:.5;filter:grayscale(1) brightness(1.6);transition:opacity .3s}
+.marcas{padding:64px 0 56px}
+.marcas__topo{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+.marcas__ctrl{display:flex;align-items:center;gap:6px}
+.marcas__seta,.marcas__todas{height:36px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--linha2);color:var(--cinza);font:500 13px/1 var(--sans);transition:background .25s,color .25s}
+.marcas__seta{width:36px}.marcas__todas{padding:0 14px;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.marcas__seta:hover,.marcas__todas:hover{background:rgba(201,196,255,.1);color:var(--osso)}
+.marcas__vista{overflow:hidden;cursor:grab;touch-action:pan-y;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marcas__vista.arrasta{cursor:grabbing}
+.marcas__trilho{display:flex;align-items:center;gap:72px;width:max-content;padding:8px 0;will-change:transform}
+.marcas img{height:30px;width:auto;opacity:.5;filter:grayscale(1) brightness(1.6);transition:opacity .3s;user-select:none;-webkit-user-drag:none;pointer-events:none}
 .marcas img.alta{height:40px}
-.marcas img:hover{opacity:1}
+.marcas img.escuro{filter:brightness(0) invert(1)}
+.marcas__vista:hover img{opacity:.75}
+.marcas.todas .marcas__vista{cursor:default;-webkit-mask-image:none;mask-image:none}
+.marcas.todas .marcas__trilho{width:auto;max-width:var(--max);margin:0 auto;padding:0 var(--g);display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;transform:none!important}
+.marcas.todas .marcas__trilho img{box-sizing:content-box;height:30px;padding:26px 20px;border-radius:14px;box-shadow:inset 0 0 0 1px var(--linha);object-fit:contain;justify-self:stretch;width:calc(100% - 40px);opacity:.75;animation:logoEntra .5s var(--out) both}
+.marcas.todas .marcas__trilho img.dup{display:none}
+@keyframes logoEntra{from{opacity:0;transform:translateY(10px)}}
+@media (max-width:860px){.marcas__trilho{gap:36px}.marcas img{height:22px}.marcas img.alta{height:30px}.marcas__seta{display:none}.marcas.todas .marcas__trilho{grid-template-columns:repeat(2,1fr)}}
 
 /* ===== seções ===== */
 .secao{padding:clamp(80px,10vw,150px) 0}
@@ -190,6 +202,11 @@ button.chip:hover{background:rgba(201,196,255,.12);box-shadow:inset 0 0 0 1px va
 .tl__texto h3{font:600 clamp(28px,3vw,40px)/1.05 var(--sans);letter-spacing:-.03em;margin:14px 0 14px}
 .tl__texto p{color:var(--cinza)}
 .tl__lista{margin-top:24px;border-top:1px solid var(--linha)}
+.tl__socios{grid-column:2;list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.tl__socios li{display:flex;flex-direction:column;gap:4px;padding:12px 16px;border-radius:14px;box-shadow:inset 0 0 0 1px var(--linha)}
+.tl__socios b{font:500 15px/1.2 var(--sans)}
+.tl__socios span{font:500 10px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--cinza)}
+@media (max-width:860px){.tl__socios{grid-column:1}}
 .tl__lista li{list-style:none;display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--linha);font-size:15px}
 .tl__lista span{color:var(--cinza);text-align:right}
 
@@ -313,8 +330,100 @@ html.cursor-on,html.cursor-on a,html.cursor-on button,html.cursor-on [role=butto
 @media (min-width:861px){.cap__mini{display:none}}
 @media (prefers-reduced-motion:reduce){
   .rastro,.hero h1 .l span,.hero__lead,.hero__acoes,.hero__pe,.hero__topo{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
-  .marcas__trilho,.hero__rolar i{animation:none}
+  .hero__rolar i{animation:none}
 }
+
+/* ===== v9 · sistema de UI: tipografia, ritmo e diagramação ===== */
+:root{--fs-h2:clamp(38px,5.2vw,80px);--fs-lead:clamp(17px,1.3vw,20px);--fs-corpo:16px;--ritmo:clamp(88px,10vw,148px)}
+body{font-size:var(--fs-corpo);line-height:1.6}
+em,.hero h1 em{font-family:inherit;font-style:normal;font-weight:inherit;letter-spacing:inherit;color:#7d6cf2}
+.mono{font-size:11px;letter-spacing:.14em}
+.secao{padding:var(--ritmo) 0}
+/* cabeçalho de seção: rótulo em cima, título à esquerda, apoio à direita */
+.cab{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);grid-template-areas:"rot rot" "tit lead";column-gap:clamp(32px,6vw,96px);row-gap:22px;align-items:end;margin-bottom:clamp(44px,6vw,80px)}
+.cab>.mono{grid-area:rot;display:flex;align-items:center;gap:12px}
+.cab>.mono:before{content:"";width:28px;height:1px;background:var(--lilas)}
+.cab>div{display:contents}
+.cab h2{grid-area:tit;font:500 var(--fs-h2)/.98 var(--sans);letter-spacing:-.045em;max-width:15ch}
+.cab p.lead{grid-area:lead;margin:0;max-width:46ch;font-size:var(--fs-lead);line-height:1.55;color:var(--cinza);padding-bottom:.4em}
+.cab .tl__socios{grid-column:1 / -1}
+/* A–F */
+.cap__cab{padding:24px 0}
+.cap__nome{font-weight:500;letter-spacing:-.04em}
+.cap__dentro>p{font-size:17px;line-height:1.55;max-width:52ch}
+.cap__grupos{gap:28px}
+.chip{font-size:14px;padding:10px 14px}
+/* TimeLESS: etapas em grade */
+.tl__socios{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:8px}
+.tl__socios li{padding:18px 18px 20px;border-radius:16px;gap:8px;background:rgba(255,255,255,.015)}
+.tl__socios b{font:500 17px/1.2 var(--sans);letter-spacing:-.01em}
+.tl__socios span{font:400 14px/1.45 var(--sans);letter-spacing:0;text-transform:none;color:var(--cinza)}
+.tl{gap:clamp(28px,4vw,64px);align-items:start}
+.tl__texto h3{font-weight:500;letter-spacing:-.035em}
+.tl__texto>p{font-size:17px;line-height:1.55;color:var(--cinza)}
+.tl__lista li{font-size:15px;padding:14px 0}
+.tl__filme span{left:20px;bottom:18px;right:20px;color:rgba(236,235,239,.85)}
+/* trabalhos */
+.filtros{gap:8px}
+.filtros button{font-size:14px;padding:11px 16px}
+.peca__info h3{font-weight:500;letter-spacing:-.035em}
+/* contato */
+.frase{max-width:1180px}
+.frase__lead{margin-top:18px;max-width:46ch}
+.frase__texto{font-weight:500;letter-spacing:-.045em;margin-top:28px}
+.frase__acoes{flex-direction:column;align-items:flex-start;gap:16px}
+.frase__nota{font-size:10px;color:var(--fumo)}
+.links{gap:10px;flex-wrap:wrap;margin-top:8px}
+.links a{font-size:12px;padding:10px 14px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--linha)}
+.links a:hover{box-shadow:inset 0 0 0 1px var(--lilas)}
+/* rodapé */
+.rodape__linha{font-size:11px}
+/* hero */
+.hero__lead{font-size:var(--fs-lead);color:var(--cinza)}
+.hero__topo{letter-spacing:.18em}
+
+@media (max-width:1000px){
+  .cab{grid-template-columns:1fr;grid-template-areas:"rot" "tit" "lead";align-items:start}
+  .cab h2{max-width:none}
+}
+@media (max-width:860px){
+  :root{--fs-h2:clamp(34px,9.6vw,48px);--ritmo:76px}
+  .wrap{padding:0 20px}
+  .cab{row-gap:16px;margin-bottom:36px}
+  .cab p.lead{font-size:17px}
+  .cap__cab{grid-template-columns:28px 1fr;gap:10px;padding:20px 0}
+  .cap__nome{font-size:30px}
+  .cap__dentro>p{font-size:16px}
+  .tl__socios{grid-template-columns:1fr;gap:8px}
+  .tl__socios li{padding:14px 16px;gap:4px}
+  .tl__socios span{font-size:14px}
+  .tl__lista li{flex-direction:column;gap:2px}
+  .tl__lista span{text-align:left;font-size:14px}
+  .tl__filme span{font-size:9px}
+  .filtros{flex-wrap:nowrap;overflow-x:auto;margin:0 -20px;padding:0 20px 4px;scrollbar-width:none}
+  .filtros::-webkit-scrollbar{display:none}
+  .filtros button{flex:none}
+  .frase__texto{font-size:clamp(30px,8.6vw,40px);line-height:1.15}
+  .hero h1{font-size:clamp(40px,11.4vw,56px)}
+  .hero__lead{font-size:16px;padding:0 6px}
+  .marcas__topo{flex-wrap:wrap}
+}
+
+/* negrito nos textos: destaca sem gritar */
+.lead b,.hero__lead b,.cap__dentro p b,.tl__texto p b{color:var(--osso);font-weight:500}
+
+/* hero · interferência letra por letra ao passar o mouse */
+.hero h1{cursor:default}
+.ch{display:inline-block;transition:color .3s}
+.ch.on{animation:letra .42s steps(1) both}
+.ch.viz{animation:letraLeve .3s steps(1) both}
+@keyframes letra{0%{color:#c9c4ff;text-shadow:-5px 0 #8f82ff,5px 0 rgba(233,230,255,.7);translate:0 -6px}20%{text-shadow:6px 0 #8f82ff,-4px 0 rgba(233,230,255,.7);translate:2px 3px}45%{color:#ecebef;text-shadow:-3px 0 #8f82ff,2px 0 rgba(233,230,255,.6);translate:-2px -2px}70%{text-shadow:2px 0 #8f82ff;translate:1px 0}100%{color:inherit;text-shadow:none;translate:0 0}}
+@keyframes letraLeve{0%{text-shadow:-2px 0 #8f82ff,2px 0 rgba(233,230,255,.5);translate:0 -2px}60%{text-shadow:1px 0 #8f82ff;translate:1px 0}100%{text-shadow:none;translate:0 0}}
+@media (prefers-reduced-motion:reduce){.ch.on,.ch.viz{animation:none}}
+.cab h2 .palavra{display:inline-block;white-space:nowrap}
+
+/* destaque dos títulos: roxo mais escuro */
+.cab h2 em,.hero h1 em,.frase__texto em,.caps__letra em{color:#7d6cf2}
 </style>
 </head>
 <body>
@@ -359,21 +468,21 @@ html.cursor-on,html.cursor-on a,html.cursor-on button,html.cursor-on [role=butto
     <use href="#gkl" class="hero__gk-base"/></svg></div>
     </div>
     <p class="hero__topo mono">kstro · estratégia, mídia e sistemas</p>
-    <h1 id="titulo"><span class="l"><span>Guilherme Castro<em>.</em></span></span></h1>
-    <p class="hero__lead">Eu penso a marca, coloco ela na frente das pessoas certas e construo o sistema que <b>prova que deu certo.</b></p>
+    <h1 id="titulo" aria-label="Guilherme Castro"><span class="l"><span class="nome" data-t="Guilherme Castro."><span class="nome__txt" aria-hidden="true">Guilherme Castro</span><em aria-hidden="true">.</em></span></span></h1>
+    <p class="hero__lead">Eu penso a marca, coloco ela na frente das <b>pessoas certas</b> e construo o sistema que <b>prova que deu certo.</b></p>
     <div class="hero__acoes"><a class="botao" href="#trabalhos">Ver trabalhos</a><a class="botao botao--linha" href="#faco">O que eu faço</a></div>
   </div>
   <div class="hero__pe wrap">
     <span class="mono">Estratégia · Mídia · Funis · Sistemas</span>
-    <span class="mono hero__rolar"><i></i>role</span>
     <span class="mono">Sócio e diretor estratégico · TimeLESS</span>
   </div>
 </section>
 
 <section class="marcas" aria-label="Marcas com quem trabalhei">
-  <p class="mono">Marcas com quem já trabalhei</p>
-  <div class="marcas__vista"><div class="marcas__trilho" id="marcas">
-    <img src="media/logos/doca-w.png" class="alta" alt=""><img src="media/logos/quezado-w.png" alt=""><img src="media/logos/moopy-w.png" alt=""><img src="media/logos/cm-w.png" alt=""><img src="media/logos/lovol-w.png" alt=""><img src="media/logos/dragao-w.png" class="alta" alt=""><img src="media/logos/guanabara.png" alt=""><img src="media/logos/ferrovia-w.png" alt=""><img src="media/logos/fracht.png" alt=""><img src="media/logos/core.png" class="alta" alt=""><img src="media/logos/centro-fashion.png" alt="">
+  <div class="marcas__topo wrap"><p class="mono">Marcas com quem já trabalhei</p>
+    <div class="marcas__ctrl"><button type="button" class="marcas__seta" id="marcas-ant" aria-label="Marcas anteriores">←</button><button type="button" class="marcas__seta" id="marcas-prox" aria-label="Próximas marcas">→</button><button type="button" class="marcas__todas" id="marcas-todas" aria-expanded="false">Ver todas</button></div></div>
+  <div class="marcas__vista" id="marcas-vista"><div class="marcas__trilho" id="marcas">
+    <img src="media/logos/doca-w.png" class="alta" alt=""><img src="media/logos/quezado-w.png" alt=""><img src="media/logos/moopy-w.png" alt=""><img src="media/logos/cm-w.png" alt=""><img src="media/logos/lovol-w.png" alt=""><img src="media/logos/dragao-w.png" class="alta" alt=""><img src="media/logos/guanabara.png" alt=""><img src="media/logos/ferrovia-w.png" alt=""><img src="media/logos/fracht.png" alt=""><img src="media/logos/core.png" class="alta" alt=""><img src="media/logos/centro-fashion.png" class="escuro" alt="">
   </div></div>
   <ul class="sr"><li>Grupo Doca</li><li>Quezado &amp; Brasil Advogados</li><li>Moopy</li><li>CM Máquinas</li><li>Lovol</li><li>Dragão</li><li>Guanabara Diesel</li><li>Ferrovia Solar &amp; Grau</li><li>Fracht Group</li><li>Core Engenharia</li><li>Centro Fashion</li></ul>
 </section>
@@ -386,7 +495,7 @@ html.cursor-on,html.cursor-on a,html.cursor-on button,html.cursor-on [role=butto
       <p class="mono rastro">01 · O que eu faço</p>
       <div>
         <h2 id="faco-t" class="rastro d1">Seis jeitos de fazer<br>a sua marca <em>andar.</em></h2>
-        <p class="lead rastro d2">Do diagnóstico ao sistema que roda sozinho. Em cada etapa, o que eu já entreguei e o que eu posso fazer pela sua marca a partir de agora.</p>
+        <p class="lead rastro d2">Do diagnóstico ao sistema que roda sozinho. Em cada etapa, <b>o que eu já entreguei</b> e o que <b>posso fazer pela sua marca</b> a partir de agora.</p>
       </div>
     </div>
     <div class="caps">
@@ -405,19 +514,25 @@ html.cursor-on,html.cursor-on a,html.cursor-on button,html.cursor-on [role=butto
     <div class="cab">
       <p class="mono rastro">02 · TimeLESS</p>
       <div>
-        <h2 id="tl-t" class="rastro d1">O estúdio que eu<br>estou <em>construindo.</em></h2>
-        <p class="lead rastro d2">Um estúdio de marca e tecnologia que fundei com mais dois sócios. Ainda está sendo montado, peça por peça.</p>
+        <h2 id="tl-t" class="rastro d1">Meu melhor trabalho<br>ainda está em <em>andamento.</em></h2>
+        <p class="lead rastro d2">A TimeLESS é o estúdio de marca e tecnologia que eu fundei com mais dois sócios. Funciona como <b>um time só</b>: estratégia, criação, audiovisual e tecnologia na mesma mesa, do primeiro diagnóstico até o <b>resultado medido</b>, sem passar a sua marca de fornecedor em fornecedor.</p>
+        <ol class="tl__socios rastro d3">
+          <li><b>01 · Entender</b><span>O negócio, o público e a concorrência</span></li>
+          <li><b>02 · Desenhar</b><span>Posicionamento, identidade e plano</span></li>
+          <li><b>03 · Produzir</b><span>Design, audiovisual e campanhas</span></li>
+          <li><b>04 · Construir e medir</b><span>Sites, sistemas e relatórios</span></li>
+        </ol>
       </div>
     </div>
     <div class="tl">
       <div class="tl__filme rastro" id="tl-filme" role="button" tabindex="0" aria-label="Ver o filme Fire Less com som">
         <video data-auto muted loop playsinline preload="none" poster="media/img/fireless.jpg"><source src="media/v/fireless-som.mp4" type="video/mp4"></video>
-        <span class="mono">Fire Less · filme de abertura · clique para ver com som</span>
+        <span class="mono">▶ Fire Less · filme de abertura · ver com som</span>
       </div>
       <div class="tl__texto rastro d1">
         <p class="mono">Meu papel</p>
         <h3>Diretor estratégico.</h3>
-        <p>Fico com o lado que decide para onde a marca vai, como ela chega até as pessoas e como a gente prova que funcionou.</p>
+        <p>Na TimeLESS eu cuido do lado que decide <b>para onde a marca vai</b>, como ela chega até as pessoas e como a gente <b>prova que funcionou</b>. É ali que tudo o que está neste portfólio vira método.</p>
         <ul class="tl__lista">
           <li>Estratégia<span>Diagnóstico e plano de cada cliente</span></li>
           <li>Comercial<span>Prospecção, propostas e negociação</span></li>
@@ -438,7 +553,7 @@ html.cursor-on,html.cursor-on a,html.cursor-on button,html.cursor-on [role=butto
       <p class="mono rastro">03 · Trabalhos</p>
       <div>
         <h2 id="trab-t" class="rastro d1">Feito, proposto<br>e em <em>teste.</em></h2>
-        <p class="lead rastro d2">Nomes e números reais, com autorização dos clientes. Cada linha diz se o trabalho foi executado, proposto ou é um conceito.</p>
+        <p class="lead rastro d2"><b>Nomes e números reais</b>, com autorização dos clientes. Cada peça mostra se foi <b>executada, proposta ou conceito</b>. Toque em qualquer uma para ver de perto.</p>
       </div>
     </div>
     <div class="filtros" id="filtros" role="group" aria-label="Filtrar trabalhos"></div>
@@ -457,6 +572,7 @@ html.cursor-on,html.cursor-on a,html.cursor-on button,html.cursor-on [role=butto
   <div class="wrap">
     <div class="frase">
       <p class="mono rastro">04 · Contato</p>
+      <p class="lead frase__lead rastro d1">Me conta o que você precisa <b>em uma frase</b>. O resto a gente resolve <b>conversando</b>.</p>
       <h2 class="frase__texto rastro d1" id="ct-t">Oi Guilherme, preciso de
         <span class="campo menu" id="zap-menu"><button type="button" id="zap-tipo" aria-haspopup="listbox" aria-expanded="false" aria-label="O que você precisa"><span id="zap-tipo-txt">um site novo</span><i aria-hidden="true">↓</i></button><ul role="listbox" id="zap-lista" hidden><li role="option" tabindex="-1" aria-selected="true">um site novo</li><li role="option" tabindex="-1" aria-selected="false">mais vendas com anúncios</li><li role="option" tabindex="-1" aria-selected="false">um jogo para o meu evento</li><li role="option" tabindex="-1" aria-selected="false">um sistema sob medida</li><li role="option" tabindex="-1" aria-selected="false">relatórios que eu entenda</li><li role="option" tabindex="-1" aria-selected="false">ajuda com a minha marca</li></ul></span>
         para a
@@ -464,6 +580,7 @@ html.cursor-on,html.cursor-on a,html.cursor-on button,html.cursor-on [role=butto
       </h2>
       <div class="frase__acoes rastro d2">
         <button type="button" class="botao" id="zap-enviar">Mandar no WhatsApp ↗</button>
+        <p class="frase__nota mono">A mensagem já vai pronta. Você revisa antes de enviar.</p>
         <p class="links"><a href="mailto:guilhermecastro1009@gmail.com">E-mail</a><a href="https://instagram.com/guicastro__" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/in/guilherme-castro-047871208/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/guikstro" target="_blank" rel="noopener">GitHub</a></p>
       </div>
     </div>
@@ -513,12 +630,12 @@ const CATS = [['todos','Todos'],['relatorios','Relatórios'],['jogos','Jogos'],[
 const STATUS = { exec:['st--exec','Executado'], prop:['st--prop','Proposta'], conc:['st--conc','Conceito'] };
 const ROTULO = { sites:'Site', jogos:'Jogo', relatorios:'Relatório', criativos:'Criativo', propostas:'Proposta', pessoais:'Sistema' };
 const CAPS = [
-  { k:'A', nome:'Entender', sub:'Estratégia e posicionamento', txt:'Antes da primeira peça: diagnóstico do negócio, do público e da concorrência, e um plano escrito para o dono entender.', feito:['core','fracht'], pode:['Auditoria de marca e concorrência','Plano de crescimento de 90 dias'], video:'core.mp4', poster:'core.jpg' },
-  { k:'B', nome:'Atrair', sub:'Mídia paga e criativos', txt:'Meta, Google e TikTok, da divisão da verba à otimização semana a semana, com criativos feitos para cada canal.', feito:['qbv5','qbins','qbbpc','qbposts'], pode:['Criativos com IA em escala','Roteiros para criadores (UGC)'], video:'quezado-v5-som.mp4', poster:'quezado-v5.jpg' },
-  { k:'C', nome:'Converter', sub:'Sites, landing pages e funis', txt:'Do anúncio à conversa no WhatsApp e à venda, com cada etapa desenhada para não perder gente no caminho.', feito:['moopy','qbbio'], pode:['Atendimento com IA no WhatsApp','CRM e follow-up automático'], video:'moopy-case-hero.mp4', poster:'moopy-case-hero.jpg' },
-  { k:'D', nome:'Engajar', sub:'Jogos e ativações', txt:'Jogos de evento e experiências que fazem a pessoa parar no estande, jogar e deixar o contato.', feito:['noponto','cm'], pode:['Configurador 3D de produto','Gamificação de fidelidade'], video:'noponto.mp4', poster:'np-home.jpg' },
-  { k:'E', nome:'Provar', sub:'Relatórios e mensuração', txt:'No lugar do PDF de prints, relatórios interativos que o cliente tem vontade de abrir e entende em dois minutos.', feito:['dragao','guanabara','ferrovia','adsquest','doca'], pode:['Painel ao vivo para o cliente','Rastreio do anúncio até a venda'], video:'dragao.mp4', poster:'dragao-b.jpg' },
-  { k:'F', nome:'Automatizar', sub:'Sistemas e IA', txt:'Ferramentas sob medida que tiram o trabalho repetido do caminho: propostas, vídeos e assistentes.', feito:['gerador','esteira','jarvis'], pode:['Agentes de IA para a operação','Integração entre as ferramentas da empresa'], video:'jarvis-som.mp4', poster:'jarvis-5.jpg' },
+  { k:'A', nome:'Entender', sub:'Estratégia e posicionamento', txt:'Antes da primeira peça, um <b>diagnóstico do negócio</b>, do público e da concorrência, e um plano escrito para o <b>dono entender</b>.', feito:['core','fracht'], pode:['Auditoria de marca e concorrência','Plano de crescimento de 90 dias'], video:'core.mp4', poster:'core.jpg' },
+  { k:'B', nome:'Atrair', sub:'Mídia paga e criativos', txt:'Meta, Google e TikTok, da divisão da verba à <b>otimização semana a semana</b>, com <b>criativos feitos para cada canal</b>.', feito:['qbv5','qbins','qbbpc','qbposts'], pode:['Criativos com IA em escala','Roteiros para criadores (UGC)'], video:'quezado-v5-som.mp4', poster:'quezado-v5.jpg' },
+  { k:'C', nome:'Converter', sub:'Sites, landing pages e funis', txt:'Do anúncio à conversa no WhatsApp e à <b>venda</b>, com cada etapa desenhada para <b>não perder gente no caminho</b>.', feito:['moopy','qbbio'], pode:['Atendimento com IA no WhatsApp','CRM e follow-up automático'], video:'moopy-case-hero.mp4', poster:'moopy-case-hero.jpg' },
+  { k:'D', nome:'Engajar', sub:'Jogos e ativações', txt:'Jogos de evento e experiências que fazem a pessoa <b>parar no estande</b>, jogar e <b>deixar o contato</b>.', feito:['noponto','cm'], pode:['Configurador 3D de produto','Gamificação de fidelidade'], video:'noponto.mp4', poster:'np-home.jpg' },
+  { k:'E', nome:'Provar', sub:'Relatórios e mensuração', txt:'No lugar do PDF de prints, <b>relatórios interativos</b> que o cliente tem vontade de abrir e <b>entende em dois minutos</b>.', feito:['dragao','guanabara','ferrovia','adsquest','doca'], pode:['Painel ao vivo para o cliente','Rastreio do anúncio até a venda'], video:'dragao.mp4', poster:'dragao-b.jpg' },
+  { k:'F', nome:'Automatizar', sub:'Sistemas e IA', txt:'<b>Ferramentas sob medida</b> que tiram o <b>trabalho repetido</b> do caminho: propostas, vídeos e assistentes.', feito:['gerador','esteira','jarvis'], pode:['Agentes de IA para a operação','Integração entre as ferramentas da empresa'], video:'jarvis-som.mp4', poster:'jarvis-5.jpg' },
 ];
 const PROVA = [['37,3 mi','impressões pagas · Dragão'],['388','ícones na personalização 3D · Moopy'],['19','trabalhos neste portfólio'],['11','marcas atendidas'],['4','lojas num relatório · Grupo Doca'],['3','canais numa leitura só · Meta, TikTok, Google']];
 
@@ -558,7 +675,31 @@ const PROVA = [['37,3 mi','impressões pagas · Dragão'],['388','ícones na per
   const hero = $('#inicio');
   // transição de saída do hero: o vídeo aproxima e escurece, o texto sobe com rastro
   if (!reduz) { let hr = 0; addEventListener('scroll', () => { if (hr) return; hr = requestAnimationFrame(() => { hr = 0; const h = Math.min(1, Math.max(0, scrollY / (hero.offsetHeight * .85))); hero.style.setProperty('--h', h.toFixed(3)); }); }, { passive: true }); }
-  const marcas = $('#marcas'); marcas.innerHTML += marcas.innerHTML;
+  // marcas: passam sozinhas; setas, arrastar e "ver todas"
+  (() => {
+    const sec = $('.marcas'), vista = $('#marcas-vista'), tr = $('#marcas'), todas = $('#marcas-todas');
+    tr.insertAdjacentHTML('beforeend', tr.innerHTML.replace(/<img src="([^"]*)"(?: class="([^"]*)")?/g, (m, src, c) => `<img src="${src}" class="dup ${c || ''}" aria-hidden="true"`));
+    let x = 0, alvo = null, para = false, arrasta = false, x0 = 0, p0 = 0, metade = 0;
+    const mede = () => { metade = tr.scrollWidth / 2; };
+    const volta = v => { if (!metade) return v; while (v <= -metade) v += metade; while (v > 0) v -= metade; return v; };
+    const loop = () => {
+      if (!sec.classList.contains('todas')) {
+        if (alvo !== null) { x += (alvo - x) * .12; if (Math.abs(alvo - x) < .5) { x = alvo; alvo = null; } }
+        else if (!para && !arrasta && !reduz) x -= .45;
+        x = volta(x); if (alvo !== null) alvo = x + (alvo - x); tr.style.transform = `translate3d(${x}px,0,0)`;
+      }
+      requestAnimationFrame(loop);
+    };
+    const anda = d => { mede(); const passo = Math.min(360, vista.clientWidth * .6); alvo = (alvo ?? x) + d * passo; if (alvo > 0) { x -= metade; alvo -= metade; } if (alvo <= -metade) { x += metade; alvo += metade; } };
+    $('#marcas-ant').addEventListener('click', () => anda(1)); $('#marcas-prox').addEventListener('click', () => anda(-1));
+    vista.addEventListener('pointerenter', () => { para = true; }); vista.addEventListener('pointerleave', () => { para = false; });
+    vista.addEventListener('pointerdown', e => { if (sec.classList.contains('todas')) return; arrasta = true; alvo = null; x0 = e.clientX; p0 = x; vista.classList.add('arrasta'); vista.setPointerCapture(e.pointerId); });
+    vista.addEventListener('pointermove', e => { if (!arrasta) return; mede(); x = volta(p0 + (e.clientX - x0)); });
+    const solta = () => { arrasta = false; vista.classList.remove('arrasta'); };
+    vista.addEventListener('pointerup', solta); vista.addEventListener('pointercancel', solta);
+    todas.addEventListener('click', () => { const on = sec.classList.toggle('todas'); todas.setAttribute('aria-expanded', String(on)); todas.textContent = on ? 'Fechar' : 'Ver todas'; if (!on) { tr.style.transform = `translate3d(${x}px,0,0)`; } });
+    addEventListener('resize', mede); addEventListener('load', mede); mede(); requestAnimationFrame(loop);
+  })();
 
   // hero · fumaça escura em WebGL que sobe devagar e acende perto do cursor; (gk) inclina e o rastro estica com a velocidade
   (() => {
@@ -590,6 +731,25 @@ c*=smoothstep(1.2,.2,length((uv-vec2(.5,.5))*vec2(1.,1.3)));gl_FragColor=vec4(c,
     requestAnimationFrame(q);
   })();
 
+  // títulos · interferência letra por letra: cada letra embaralha e treme quando o mouse passa por ela
+  (() => {
+    if (reduz) return;
+    const sinais = '#%&@$/<>[]=+*01kstro';
+    const quebra = el => { const nos = []; const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); while (w.nextNode()) nos.push(w.currentNode);
+      nos.forEach(n => { if (!n.textContent.trim()) return; const f = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(pal => { if (!pal) return; if (/^\s+$/.test(pal)) { f.appendChild(document.createTextNode(pal)); return; }
+          const sp = document.createElement('span'); sp.className = 'palavra';
+          [...pal].forEach(c => { const ch = document.createElement('span'); ch.className = 'ch'; ch.dataset.c = c; ch.textContent = c; sp.appendChild(ch); }); f.appendChild(sp); });
+        n.replaceWith(f); }); };
+    const mexe = (el, forte) => { if (el._t) return; const orig = el.dataset.c; el.classList.remove('on', 'viz'); void el.offsetWidth; el.classList.add(forte ? 'on' : 'viz');
+      let n = forte ? 6 : 2; const passo = () => { if (n-- > 0) { el.textContent = sinais[Math.random() * sinais.length | 0]; el._t = setTimeout(passo, 55); } else { el.textContent = orig; el._t = 0; } };
+      el._t = setTimeout(passo, 0); setTimeout(() => el.classList.remove('on', 'viz'), forte ? 440 : 320); };
+    [$('.nome__txt'), ...$$('.cab h2')].filter(Boolean).forEach(t => {
+      quebra(t); const letras = $$('.ch', t);
+      t.addEventListener('pointerover', e => { const el = e.target.closest('.ch'); if (!el) return; const k = letras.indexOf(el); mexe(el, true); [letras[k - 1], letras[k + 1]].forEach(v => v && mexe(v, false)); });
+    });
+  })();
+
   // ---------- revela com rastro ----------
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -2% 0px', threshold: 0 });
   const observa = () => $$('.rastro:not(.visto),.corte:not(.visto)').forEach(el => io.observe(el));
@@ -614,7 +774,7 @@ c*=smoothstep(1.2,.2,length((uv-vec2(.5,.5))*vec2(1.,1.3)));gl_FragColor=vec4(c,
     const pode = c.pode.map(p => `<span class="chip chip--novo">${esc(p)}</span>`).join('');
     const el = document.createElement('div'); el.className = `cap rastro d${Math.min(i, 4)}`; el.dataset.i = i;
     el.innerHTML = `<button type="button" class="cap__cab" aria-expanded="false" aria-controls="cap-${i}"><span class="cap__letra">${c.k}</span><span class="cap__nome">${esc(c.nome)}</span><span class="cap__sub">${esc(c.sub)}</span></button>
-      <div class="cap__corpo" id="cap-${i}"><div class="cap__dentro"><div class="cap__mini"><img src="media/img/${c.poster}" alt="" loading="lazy"></div><p>${esc(c.txt)}</p>
+      <div class="cap__corpo" id="cap-${i}"><div class="cap__dentro"><div class="cap__mini"><img src="media/img/${c.poster}" alt="" loading="lazy"></div><p>${c.txt}</p>
       <div class="cap__grupos"><div><p class="mono">Já fiz</p><div class="chips">${feito}</div></div><div><p class="mono">Posso fazer pela sua marca</p><div class="chips">${pode}</div></div></div></div></div>`;
     caps.appendChild(el);
     const v = document.createElement('video'); v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'none'; v.poster = `media/img/${c.poster}`; v.dataset.src = `media/v/${c.video}`; v.dataset.i = i;
